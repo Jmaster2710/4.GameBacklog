@@ -7,11 +7,10 @@ import android.content.Context;
 
 @Database(entities = {Game.class}, version = 1)
 
-public abstract  class AppDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase {
 
 
-    public abstract GameDao reminderDao();
-
+    public abstract GameDao GameDao();
 
     private final static String NAME_DATABASE = "game_db";
 

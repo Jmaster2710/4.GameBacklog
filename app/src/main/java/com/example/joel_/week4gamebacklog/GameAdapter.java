@@ -12,7 +12,7 @@ import java.util.List;
 public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
 
     private Context context;
-    public List<Game> listGames;
+    private List<Game> listGames;
 
 
     public GameAdapter(Context context, List<Game> listGameObject) {
@@ -20,6 +20,22 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
         this.context = context;
 
         this.listGames = listGameObject;
+
+    }
+
+
+    public void swapList (List<Game> newList) {
+
+
+        listGames = newList;
+
+        if (newList != null) {
+
+            // Force the RecyclerView to refresh
+
+            this.notifyDataSetChanged();
+
+        }
 
     }
 

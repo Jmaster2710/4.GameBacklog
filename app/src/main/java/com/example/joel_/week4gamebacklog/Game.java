@@ -35,6 +35,11 @@ public class Game{
         return mPlatform;
     }
 
+    public long getId()
+    {
+        return id;
+    }
+
     public String getNotes()
     {
         return mNotes;
@@ -46,13 +51,26 @@ public class Game{
     }
 
     //Setters
-    public void setmLinkUrl(String mLinkUrl)
+    public void setId(long id)
     {
-        //this.mLinkUrl = mLinkUrl;
+        this.id = id;
     }
-    public void setmLinkName(String mLinkName)
+
+    public void setTitle(String mTitle)
     {
-        //this.mLinkName = mLinkName;
+        this.mTitle = mTitle;
+    }
+    public void setPlatform(String mPlatform)
+    {
+        this.mPlatform = mPlatform;
+    }
+    public void setNotes(String mNotes)
+    {
+        this.mNotes = mNotes;
+    }
+    public void setStatus(String mStatus)
+    {
+        this.mStatus = mStatus;
     }
 
 }

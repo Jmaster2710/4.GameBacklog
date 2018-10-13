@@ -25,7 +25,7 @@
 
             <TextView
                 android:id="@+id/gameTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="323dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
@@ -43,21 +43,21 @@
 
                 <TextView
                     android:id="@+id/gamePlatform"
-                    android:layout_width="wrap_content"
+                    android:layout_width="118dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/gameStatus"
-                    android:layout_width="wrap_content"
+                    android:layout_width="139dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/currentDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="131dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />

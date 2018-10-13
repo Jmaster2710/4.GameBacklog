@@ -54,7 +54,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
 
         // Gets a single item in the list from its position
 
-        final Game gameObjects = listGames.get(position);
+        final Game gameObject = listGames.get(position);
 
         // The holder argument is used to reference the views inside the viewHolder
 
@@ -69,8 +69,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
             }
         });*/
        // holder.mButton.setText(portalObject.getmLinkName());
-
-
+        holder.mTextTitle.setText(gameObject.getTitle());
+        holder.mTextPlatform.setText(gameObject.getPlatform());
+        holder.mTextStatus.setText(gameObject.getStatus());
     }
 
     @Override

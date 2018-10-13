@@ -59,15 +59,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
         // The holder argument is used to reference the views inside the viewHolder
 
         // Populate the views with the data from the list
-        /*holder.mButton.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,AddingGameActivity.class);
-                //intent.putExtra("Url", portalObject.getmLinkUrl());
+                Intent intent = new Intent(context, AddingGameActivity.class);
+                intent.putExtra("GameBacklogTitle", gameObject.getTitle());
+                intent.putExtra("GameBacklogPlatform", gameObject.getPlatform());
+                intent.putExtra("GameBacklogStatus", gameObject.getStatus());
                 context.startActivity(intent);
-
             }
-        });*/
+        });
         holder.mTextTitle.setText(gameObject.getTitle());
         holder.mTextPlatform.setText(gameObject.getPlatform());
         holder.mTextStatus.setText(gameObject.getStatus());

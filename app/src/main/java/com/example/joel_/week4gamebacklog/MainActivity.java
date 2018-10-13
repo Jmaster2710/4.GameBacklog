@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,16 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
     //Constants
 
-    public final static int TASK_GET_ALL_REMINDERS = 0;
-    public final static int TASK_DELETE_REMINDER = 1;
-    public final static int TASK_UPDATE_REMINDER = 2;
-    public final static int TASK_INSERT_REMINDER = 3;
+    public final static int TASK_GET_ALL_GAMES = 0;
+    public final static int TASK_DELETE_GAME = 1;
+    public final static int TASK_UPDATE_GAME = 2;
+    public final static int TASK_INSERT_GAME = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         db = AppDatabase.getInstance(this);
-        new ReminderAsyncTask(TASK_GET_ALL_REMINDERS).execute();
+        new GameAsyncTask(TASK_GET_ALL_GAMES).execute();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -56,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new GameAdapter(this , listGames);
         mRecyclerView.setAdapter(mAdapter);
+
+
+        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("Mario Odyssey", "Nintendo Switch", "Very Cool", "Played"));
+        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("ZELDA Odyssey", "Nintendo SADSAD", "asdasd Cool", "DONE"));
 
         updateUI();
     }
@@ -91,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class ReminderAsyncTask extends AsyncTask<Game, Void, List> {
+    public class GameAsyncTask extends AsyncTask<Game, Void, List> {
 
 
         private int taskCode;
 
-        public ReminderAsyncTask(int taskCode) {
+        public GameAsyncTask(int taskCode) {
             this.taskCode = taskCode;
         }
 
@@ -106,21 +109,21 @@ public class MainActivity extends AppCompatActivity {
 
             switch (taskCode){
 
-                case TASK_DELETE_REMINDER:
+                case TASK_DELETE_GAME:
 
-                    db.GameDao().deleteReminders(games[0]);
-
-                    break;
-
-                case TASK_UPDATE_REMINDER:
-
-                    db.GameDao().updateReminders(games[0]);
+                    db.GameDao().deleteGames(games[0]);
 
                     break;
 
-                case TASK_INSERT_REMINDER:
+                case TASK_UPDATE_GAME:
 
-                    db.GameDao().insertReminders(games[0]);
+                    db.GameDao().updateGames(games[0]);
+
+                    break;
+
+                case TASK_INSERT_GAME:
+
+                    db.GameDao().insertGames(games[0]);
 
                     break;
 

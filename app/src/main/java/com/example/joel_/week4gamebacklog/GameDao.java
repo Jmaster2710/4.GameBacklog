@@ -20,16 +20,16 @@ public interface GameDao {
 
     @Insert
 
-    public void insertReminders(Game games);
+    public void insertGames(Game games);
 
 
     @Delete
 
-    public void deleteReminders(Game games);
+    public void deleteGames(Game games);
 
 
     @Update
 
-    public void updateReminders(Game games);
+    public void updateGames(Game games);
 
 }

@@ -54,12 +54,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
 
         // Gets a single item in the list from its position
 
-        final Game portalObject = listGames.get(position);
+        final Game gameObjects = listGames.get(position);
 
         // The holder argument is used to reference the views inside the viewHolder
 
         // Populate the views with the data from the list
-        holder.mButton.setOnClickListener(new View.OnClickListener() {
+        /*holder.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,AddingGameActivity.class);
@@ -67,7 +67,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
                 context.startActivity(intent);
 
             }
-        });
+        });*/
        // holder.mButton.setText(portalObject.getmLinkName());
 
 

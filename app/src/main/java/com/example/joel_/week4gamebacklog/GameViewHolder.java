@@ -8,14 +8,14 @@ import android.widget.ImageView;
 public class GameViewHolder extends RecyclerView.ViewHolder {
 
     public String mUrlName;
-    public Button mButton;
+    //public  mButton;
     public View view;
 
     public GameViewHolder(View itemView) {
 
         super(itemView);
 
-       // mButton = itemView.findViewById(R.id.urlButton);
+        //mButton = itemView.findViewById(R.id.cardView);
 
         view = itemView;
 

@@ -11,8 +11,11 @@ public class Game{
 
     @ColumnInfo(name = "title")
     private String mTitle;
+    @ColumnInfo(name = "platform")
     private String mPlatform;
+    @ColumnInfo(name = "notes")
     private String mNotes;
+    @ColumnInfo(name = "status")
     private String mStatus;
 
 

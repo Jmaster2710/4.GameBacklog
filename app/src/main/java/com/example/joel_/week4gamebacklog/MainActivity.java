@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private GameAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
-    private List<Game> listGames;
+    private List<Game> mGames;
     static AppDatabase db;
 
     //Constants
-
     public final static int TASK_GET_ALL_GAMES = 0;
     public final static int TASK_DELETE_GAME = 1;
     public final static int TASK_UPDATE_GAME = 2;
@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final RecyclerView mRecyclerView = findViewById(R.id.RecyclerView);
+        mRecyclerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new GameAdapter(this , listGames);
+        mAdapter = new GameAdapter(this , mGames);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -61,6 +61,33 @@ public class MainActivity extends AppCompatActivity {
         new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("ZELDA Odyssey", "Nintendo SADSAD", "asdasd Cool", "DONE"));
 
         updateUI();
+
+            /*
+Add a touch helper to the RecyclerView to recognize when a user swipes to delete a list entry.
+An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
+and uses callbacks to signal when a user is performing these actions.
+*/
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
+                            target) {
+                        return false;
+                    }
+
+                    //Called when a user swipes left or right on a ViewHolder
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                        //Get the index corresponding to the selected position
+                        int position = (viewHolder.getAdapterPosition());
+                        new GameAsyncTask(TASK_DELETE_GAME).execute(mGames.get(position));
+                    }
+                };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
     }
 
     @Override
@@ -87,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         if (mAdapter == null) {
-            mAdapter = new GameAdapter(this , listGames);
+            mAdapter = new GameAdapter(this , mGames);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.swapList(listGames);
+            mAdapter.swapList(mGames);
         }
     }
 
@@ -145,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onReminderDbUpdated(List list) {
 
-        listGames = list;
+        mGames = list;
         updateUI();
     }
 }

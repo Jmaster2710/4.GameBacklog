@@ -14,22 +14,17 @@ public interface GameDao {
 
 
     @Query("SELECT * FROM game")
-
     public List<Game> getAllGames();
 
-
     @Insert
-
     public void insertGames(Game games);
 
 
     @Delete
-
     public void deleteGames(Game games);
 
 
     @Update
-
     public void updateGames(Game games);
 
 }

@@ -68,10 +68,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
 
             }
         });*/
-       // holder.mButton.setText(portalObject.getmLinkName());
         holder.mTextTitle.setText(gameObject.getTitle());
         holder.mTextPlatform.setText(gameObject.getPlatform());
         holder.mTextStatus.setText(gameObject.getStatus());
+        holder.mTextDate.setText(gameObject.getDate());
     }
 
     @Override

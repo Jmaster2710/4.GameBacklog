@@ -58,8 +58,24 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
-        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("Mario Odyssey", "Nintendo Switch", "Very Cool", "Played"));
-        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("ZELDA Odyssey", "Nintendo SADSAD", "asdasd Cool", "DONE"));
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null) {
+            String mNewTitle = extras.getString("GameBacklogTitle");
+            String mNewPlatform = extras.getString("GameBacklogPlatform");
+            String mNewNotes = extras.getString("GameBacklogNotes");
+            String mNewStatus = extras.getString("GameBacklogStatus");
+
+            if (extras.getInt("GameBacklogNew") == -1) {
+                new GameAsyncTask(TASK_INSERT_GAME).execute(new Game(mNewTitle, mNewPlatform, mNewNotes, mNewStatus));
+            } else
+            {
+                //Code to edit existing one here
+            }
+
+        }
+        /*new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("Mario Odyssey", "Nintendo Switch", "Very Cool", "Played"));
+        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("ZELDA Odyssey", "Nintendo SADSAD", "asdasd Cool", "DONE"));*/
 
         updateUI();
 

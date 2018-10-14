@@ -19,15 +19,7 @@ public class AddingGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_game);
-
-        //Check
-        Bundle extras = getIntent().getExtras();
-
-        if(extras != null) {
-            mNewItem = extras.getInt("GameBacklogNew");
-        }
-
-
+        mNewItem = -1;
         //get the spinner from the xml.
         final Spinner dropdown = findViewById(R.id.editStatus);
         //create a list of items for the spinner.
@@ -39,6 +31,18 @@ public class AddingGameActivity extends AppCompatActivity {
         final EditText mNotesButton = findViewById((R.id.editNotes));
         final EditText mPlatformButton = findViewById((R.id.editPlatform));
         final EditText mTitleButton = findViewById((R.id.editTitle));
+
+        //Check
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null) {
+            mNewItem = extras.getInt("GameBacklogNew");
+            mNotesButton.setText(extras.getString("GameBacklogNotes"));
+            mPlatformButton.setText(extras.getString("GameBacklogPlatform"));
+            mTitleButton.setText(extras.getString("GameBacklogTitle"));
+           // dropdown.setSelection(extras.getInt("GameBacklogNew"));
+        }
+
 
         //Save settings
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -3,28 +3,35 @@ package com.example.joel_.week4gamebacklog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GameAdapter.GameClickListener{
 
 
-    //Local variables
+        //Local variables
     private GameAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     private List<Game> mGames;
+
     static AppDatabase db;
+
+    //Constants used when calling the update activity
+    public static final String EXTRA_GAME = "GameBacklogNew";
+    public static final int REQUESTCODE = 2345;
+    private int mModifyPosition;
 
     //Constants
     public final static int TASK_GET_ALL_GAMES = 0;
@@ -34,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         db = AppDatabase.getInstance(this);
         new GameAsyncTask(TASK_GET_ALL_GAMES).execute();
 
@@ -66,17 +72,24 @@ public class MainActivity extends AppCompatActivity {
             String mNewNotes = extras.getString("GameBacklogNotes");
             String mNewStatus = extras.getString("GameBacklogStatus");
 
-            if (extras.getInt("GameBacklogNew") == -1) {
+            int position = extras.getInt("GameBacklogNew");
+            Log.d("Testeroni", "Gotten Position: " + String.valueOf(position));
+            if (position == -1)
+            {
                 new GameAsyncTask(TASK_INSERT_GAME).execute(new Game(mNewTitle, mNewPlatform, mNewNotes, mNewStatus));
             } else
             {
-                //Code to edit existing one here
+                Game gameObject = mGames.get(position);
+                gameObject.setNotes(mNewNotes);
+                gameObject.setPlatform(mNewPlatform);
+                gameObject.setStatus(mNewStatus);
+                gameObject.setTitle(mNewTitle);
+                new GameAsyncTask(TASK_UPDATE_GAME).execute(gameObject);
             }
 
         }
 
         updateUI();
-
             /*
 Add a touch helper to the RecyclerView to recognize when a user swipes to delete a list entry.
 An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
@@ -134,6 +147,28 @@ and uses callbacks to signal when a user is performing these actions.
         } else {
             mAdapter.swapList(mGames);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUESTCODE) {
+            if (resultCode == RESULT_OK) {
+                Game updatedGame = data.getParcelableExtra(MainActivity.EXTRA_GAME);
+                // New timestamp: timestamp of update
+                //      mReminders.set(mModifyPosition, updatedGame);
+                new GameAsyncTask(TASK_UPDATE_GAME).execute(updatedGame);
+                updateUI();
+            }
+        }
+    }
+
+    @Override
+    public void gameOnClick(int i) {
+        Intent intent = new Intent(MainActivity.this, AddingGameActivity.class);
+        mModifyPosition = i;
+        intent.putExtra(EXTRA_GAME, mGames.get(i));
+        startActivityForResult(intent, REQUESTCODE);
     }
 
     public class GameAsyncTask extends AsyncTask<Game, Void, List> {

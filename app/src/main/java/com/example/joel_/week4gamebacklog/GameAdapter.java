@@ -1,84 +1,102 @@
 package com.example.joel_.week4gamebacklog;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
-public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
 
     private Context context;
-    private List<Game> listGames;
+    private List<Game> mGames;
 
+    final private GameClickListener mGameClickListener;
 
-    public GameAdapter(Context context, List<Game> listGameObject) {
+    public interface GameClickListener{
+        void gameOnClick (int i);
+    }
 
-        this.context = context;
+    public GameAdapter(GameClickListener mGameClickListener, List<Game> listGameObject) {
+        //this.context = context;
+        this.mGames = listGameObject;
+        this.mGameClickListener = mGameClickListener;
+    }
 
-        this.listGames = listGameObject;
-
+    public void swapList (List<Game> newList) {
+        mGames = newList;
+        if (newList != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
     }
 
 
-    public void swapList (List<Game> newList) {
+    @NonNull
+    @Override
+    public GameAdapter.GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater= LayoutInflater.from(context);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gridcell, parent, false);
+        // Return a new holder instance
+        GameAdapter.GameViewHolder gameViewHolder = new GameAdapter.GameViewHolder(view);
+        return gameViewHolder;
+    }
 
+    public class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        listGames = newList;
+        public String mUrlName;
+        public View view;
+        public TextView mTextTitle, mTextPlatform, mTextStatus, mTextDate;
 
-        if (newList != null) {
+        public GameViewHolder(View itemView) {
 
-            // Force the RecyclerView to refresh
+            super(itemView);
+            itemView.setOnClickListener(this);
+            mTextTitle = itemView.findViewById(R.id.gameTitle);
+            mTextPlatform = itemView.findViewById(R.id.gamePlatform);
+            mTextStatus = itemView.findViewById(R.id.gameStatus);
+            mTextDate = itemView.findViewById(R.id.currentDate);
 
-            this.notifyDataSetChanged();
+            view = itemView;
 
+        }
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mGameClickListener.gameOnClick(clickedPosition);
         }
 
     }
-
+/*
     @Override
-
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gridcell, parent, false);
 
         return new GameViewHolder(view);
-    }
+    } */
 
 
     @Override
-    public void onBindViewHolder(final GameViewHolder holder, final int position) {
-
+    public void onBindViewHolder(@NonNull final GameViewHolder holder, final int position) {
         // Gets a single item in the list from its position
-
-        final Game gameObject = listGames.get(position);
-
-        // The holder argument is used to reference the views inside the viewHolder
-
-        // Populate the views with the data from the list
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, AddingGameActivity.class);
-                intent.putExtra("GameBacklogTitle", gameObject.getTitle());
-                intent.putExtra("GameBacklogPlatform", gameObject.getPlatform());
-                intent.putExtra("GameBacklogStatus", gameObject.getStatus());
-                context.startActivity(intent);
-            }
-        });
+        final Game gameObject = mGames.get(position);
         holder.mTextTitle.setText(gameObject.getTitle());
         holder.mTextPlatform.setText(gameObject.getPlatform());
         holder.mTextStatus.setText(gameObject.getStatus());
         holder.mTextDate.setText(gameObject.getDate());
     }
 
+
     @Override
     public int getItemCount() {
-        if (listGames != null) {
-            return listGames.size();
+        if (mGames != null) {
+            return mGames.size();
         } else
         {
             return 0;

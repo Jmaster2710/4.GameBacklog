@@ -6,7 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GameViewHolder extends RecyclerView.ViewHolder {
+/*
+public class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public String mUrlName;
     //public  mButton;
@@ -25,4 +26,4 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
         view = itemView;
 
     }
-}
+}*/

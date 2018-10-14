@@ -33,7 +33,7 @@ public class Game{
         this.mNotes = mNotes;
         this.mStatus = mStatus;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyyy");
         Date date = new Date();
         this.mDate = dateFormat.format(date);
     }

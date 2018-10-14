@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        /*new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("Mario Odyssey", "Nintendo Switch", "Very Cool", "Played"));
-        new GameAsyncTask(TASK_INSERT_GAME).execute(new Game("ZELDA Odyssey", "Nintendo SADSAD", "asdasd Cool", "DONE"));*/
 
         updateUI();
 

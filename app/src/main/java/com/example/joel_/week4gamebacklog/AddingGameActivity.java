@@ -1,5 +1,6 @@
 package com.example.joel_.week4gamebacklog;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +57,14 @@ public class AddingGameActivity extends AppCompatActivity {
                 intent.putExtra("GameBacklogNotes", mNotesButton.getText().toString());
                 intent.putExtra("GameBacklogPlatform", mPlatformButton.getText().toString());
                 intent.putExtra("GameBacklogNew", mNewItem);
-                startActivity(intent);
+
+                if (mNewItem != -1) {
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                } else
+                {
+                    startActivity(intent);
+                }
             }
         });
     }

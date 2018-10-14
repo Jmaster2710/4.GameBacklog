@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     public static final String EXTRA_GAME = "GameBacklogNew";
     public static final int REQUESTCODE = 2345;
     private int mModifyPosition;
+    private String mNewTitle, mNewPlatform, mNewNotes, mNewStatus;
 
     //Constants
     public final static int TASK_GET_ALL_GAMES = 0;
@@ -67,26 +68,16 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         Bundle extras = getIntent().getExtras();
 
         if(extras != null) {
-            String mNewTitle = extras.getString("GameBacklogTitle");
-            String mNewPlatform = extras.getString("GameBacklogPlatform");
-            String mNewNotes = extras.getString("GameBacklogNotes");
-            String mNewStatus = extras.getString("GameBacklogStatus");
+            mNewTitle = extras.getString("GameBacklogTitle");
+            mNewPlatform = extras.getString("GameBacklogPlatform");
+            mNewNotes = extras.getString("GameBacklogNotes");
+            mNewStatus = extras.getString("GameBacklogStatus");
 
-            int position = extras.getInt("GameBacklogNew");
-            Log.d("Testeroni", "Gotten Position: " + String.valueOf(position));
-            if (position == -1)
+            mModifyPosition = extras.getInt("GameBacklogNew");
+            if (mModifyPosition == -1)
             {
                 new GameAsyncTask(TASK_INSERT_GAME).execute(new Game(mNewTitle, mNewPlatform, mNewNotes, mNewStatus));
-            } else
-            {
-                Game gameObject = mGames.get(position);
-                gameObject.setNotes(mNewNotes);
-                gameObject.setPlatform(mNewPlatform);
-                gameObject.setStatus(mNewStatus);
-                gameObject.setTitle(mNewTitle);
-                new GameAsyncTask(TASK_UPDATE_GAME).execute(gameObject);
             }
-
         }
 
         updateUI();
@@ -153,12 +144,27 @@ and uses callbacks to signal when a user is performing these actions.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUESTCODE) {
+            Log.d("Testeroni", "GOT REQUEST CODE OKAY");
             if (resultCode == RESULT_OK) {
-                Game updatedGame = data.getParcelableExtra(MainActivity.EXTRA_GAME);
-                // New timestamp: timestamp of update
-                //      mReminders.set(mModifyPosition, updatedGame);
-                new GameAsyncTask(TASK_UPDATE_GAME).execute(updatedGame);
-                updateUI();
+                Bundle extras = data.getExtras();
+                if(extras != null) {
+                    mNewTitle = extras.getString("GameBacklogTitle");
+                    mNewPlatform = extras.getString("GameBacklogPlatform");
+                    mNewNotes = extras.getString("GameBacklogNotes");
+                    mNewStatus = extras.getString("GameBacklogStatus");
+                    mModifyPosition = extras.getInt("GameBacklogNew");
+
+                    Log.d("Testeroni", "GOT RESULT OKAY");
+                    Log.d("Testeroni", "Number to change = " + String.valueOf(mModifyPosition));
+                    Log.d("Testeroni", "Title " + mNewTitle);
+                    Game updatedGame = mGames.get(mModifyPosition);//data.getParcelableExtra(MainActivity.EXTRA_GAME);
+                    updatedGame.setNotes(mNewNotes);
+                    updatedGame.setPlatform(mNewPlatform);
+                    updatedGame.setStatus(mNewStatus);
+                    updatedGame.setTitle(mNewTitle);
+                    new GameAsyncTask(TASK_UPDATE_GAME).execute(updatedGame);
+                    updateUI();
+                }
             }
         }
     }
@@ -167,7 +173,12 @@ and uses callbacks to signal when a user is performing these actions.
     public void gameOnClick(int i) {
         Intent intent = new Intent(MainActivity.this, AddingGameActivity.class);
         mModifyPosition = i;
-        intent.putExtra(EXTRA_GAME, mGames.get(i));
+        Game game = mGames.get(i);
+        intent.putExtra("GameBacklogTitle", game.getTitle());
+        intent.putExtra("GameBacklogPlatform", game.getPlatform());
+        intent.putExtra("GameBacklogStatus", game.getStatus());
+        intent.putExtra("GameBacklogNew", i);
+        //intent.putExtra(EXTRA_GAME, mGames.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
 

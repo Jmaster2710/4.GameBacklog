@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     static AppDatabase db;
 
     //Constants used when calling the update activity
-    public static final String EXTRA_GAME = "GameBacklogNew";
     public static final int REQUESTCODE = 2345;
     private int mModifyPosition;
     private String mNewTitle, mNewPlatform, mNewNotes, mNewStatus;
@@ -144,7 +143,6 @@ and uses callbacks to signal when a user is performing these actions.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUESTCODE) {
-            Log.d("Testeroni", "GOT REQUEST CODE OKAY");
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 if(extras != null) {
@@ -153,11 +151,8 @@ and uses callbacks to signal when a user is performing these actions.
                     mNewNotes = extras.getString("GameBacklogNotes");
                     mNewStatus = extras.getString("GameBacklogStatus");
                     mModifyPosition = extras.getInt("GameBacklogNew");
-
-                    Log.d("Testeroni", "GOT RESULT OKAY");
-                    Log.d("Testeroni", "Number to change = " + String.valueOf(mModifyPosition));
-                    Log.d("Testeroni", "Title " + mNewTitle);
-                    Game updatedGame = mGames.get(mModifyPosition);//data.getParcelableExtra(MainActivity.EXTRA_GAME);
+;
+                    Game updatedGame = mGames.get(mModifyPosition);
                     updatedGame.setNotes(mNewNotes);
                     updatedGame.setPlatform(mNewPlatform);
                     updatedGame.setStatus(mNewStatus);
@@ -178,7 +173,6 @@ and uses callbacks to signal when a user is performing these actions.
         intent.putExtra("GameBacklogPlatform", game.getPlatform());
         intent.putExtra("GameBacklogStatus", game.getStatus());
         intent.putExtra("GameBacklogNew", i);
-        //intent.putExtra(EXTRA_GAME, mGames.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
 

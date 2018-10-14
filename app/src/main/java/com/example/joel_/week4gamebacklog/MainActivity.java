@@ -172,6 +172,7 @@ and uses callbacks to signal when a user is performing these actions.
         intent.putExtra("GameBacklogTitle", game.getTitle());
         intent.putExtra("GameBacklogPlatform", game.getPlatform());
         intent.putExtra("GameBacklogStatus", game.getStatus());
+        intent.putExtra("GameBacklogNotes", game.getNotes());
         intent.putExtra("GameBacklogNew", i);
         startActivityForResult(intent, REQUESTCODE);
     }

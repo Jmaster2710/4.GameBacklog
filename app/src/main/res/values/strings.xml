@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Week 4 Game Backlog</string>
+    <string name="app_name">Dialogue Creator</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_adding_game">AddingGameActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>

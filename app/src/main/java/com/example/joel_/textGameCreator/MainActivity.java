@@ -18,10 +18,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements GameAdapter.GameClickListener{
 
 
-        //Local variables
+    //Local variables
     private GameAdapter mAdapter;
     private RecyclerView mRecyclerView;
-
     private List<Game> mGames;
 
     static AppDatabase db;
@@ -189,19 +188,16 @@ and uses callbacks to signal when a user is performing these actions.
                 case TASK_DELETE_GAME:
 
                     db.GameDao().deleteGames(games[0]);
-
                     break;
 
                 case TASK_UPDATE_GAME:
 
                     db.GameDao().updateGames(games[0]);
-
                     break;
 
                 case TASK_INSERT_GAME:
 
                     db.GameDao().insertGames(games[0]);
-
                     break;
 
             }
@@ -215,13 +211,11 @@ and uses callbacks to signal when a user is performing these actions.
         protected void onPostExecute(List list) {
             super.onPostExecute(list);
             onReminderDbUpdated(list);
-
         }
 
     }
 
     public void onReminderDbUpdated(List list) {
-
         mGames = list;
         updateUI();
     }

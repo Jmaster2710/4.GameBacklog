@@ -1,4 +1,4 @@
-package com.example.joel_.week4gamebacklog;
+package com.example.joel_.textGameCreator;
 
 import org.junit.Test;
 

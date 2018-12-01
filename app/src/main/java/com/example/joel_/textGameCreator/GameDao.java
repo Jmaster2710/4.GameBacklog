@@ -1,4 +1,4 @@
-package com.example.joel_.week4gamebacklog;
+package com.example.joel_.textGameCreator;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

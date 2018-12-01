@@ -1,4 +1,4 @@
-package com.example.joel_.week4gamebacklog;
+package com.example.joel_.textGameCreator;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

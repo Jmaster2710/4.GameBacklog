@@ -1,10 +1,4 @@
-package com.example.joel_.week4gamebacklog;
-
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+package com.example.joel_.textGameCreator;
 
 /*
 public class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

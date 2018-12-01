@@ -1,4 +1,4 @@
-package com.example.joel_.week4gamebacklog;
+package com.example.joel_.textGameCreator;
 
 import android.content.Intent;
 import android.os.AsyncTask;

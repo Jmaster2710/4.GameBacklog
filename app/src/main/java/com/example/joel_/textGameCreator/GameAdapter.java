@@ -41,7 +41,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     public GameAdapter.GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater= LayoutInflater.from(context);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gridcell, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.characterCell, parent, false);
         // Return a new holder instance
         GameAdapter.GameViewHolder gameViewHolder = new GameAdapter.GameViewHolder(view);
         return gameViewHolder;
@@ -76,7 +76,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     @Override
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gridcell, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.characterCell, parent, false);
 
         return new GameViewHolder(view);
     } */

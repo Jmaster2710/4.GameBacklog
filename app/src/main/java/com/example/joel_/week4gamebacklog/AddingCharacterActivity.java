@@ -9,11 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class AddingGameActivity extends AppCompatActivity {
+public class AddingCharacterActivity extends AppCompatActivity {
 
     Integer mNewItem = -1;
     @Override
@@ -51,12 +48,13 @@ public class AddingGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(AddingGameActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddingCharacterActivity.this, MainActivity.class);
                 intent.putExtra("GameBacklogStatus", dropdown.getSelectedItem().toString());
                 intent.putExtra("GameBacklogTitle", mTitleButton.getText().toString());
                 intent.putExtra("GameBacklogNotes", mNotesButton.getText().toString());
                 intent.putExtra("GameBacklogPlatform", mPlatformButton.getText().toString());
                 intent.putExtra("GameBacklogNew", mNewItem);
+
 
                 if (mNewItem != -1) {
                     setResult(Activity.RESULT_OK, intent);

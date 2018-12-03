@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddingCharacterActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(MainActivity.this, AddingCharacterActivity.class);
+                //  startActivity(intent);
             }
         });
 

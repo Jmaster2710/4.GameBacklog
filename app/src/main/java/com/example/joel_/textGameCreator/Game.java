@@ -14,39 +14,27 @@ public class Game{
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @ColumnInfo(name = "title")
-    private String mTitle;
-    @ColumnInfo(name = "platform")
-    private String mPlatform;
-    @ColumnInfo(name = "notes")
-    private String mNotes;
-    @ColumnInfo(name = "status")
-    private String mStatus;
-    @ColumnInfo(name = "date")
-    private String mDate;
+    @ColumnInfo(name = "name")
+    private String mName;
+    @ColumnInfo(name = "text")
+    private String mText;
 
 
-    public Game(String mTitle, String mPlatform, String mNotes, String mStatus)
+    public Game(String mName, String mText)
     {
-        this.mTitle = mTitle;
-        this.mPlatform = mPlatform;
-        this.mNotes = mNotes;
-        this.mStatus = mStatus;
-
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyyy");
-        Date date = new Date();
-        this.mDate = dateFormat.format(date);
+        this.mName = mName;
+        this.mText = mText;
     }
 
     //Getters
-    public String getTitle()
+    public String getName()
     {
-        return mTitle;
+        return mName;
     }
 
-    public String getPlatform()
+    public String getText()
     {
-        return mPlatform;
+        return mText;
     }
 
     public long getId()
@@ -54,46 +42,18 @@ public class Game{
         return id;
     }
 
-    public String getNotes()
-    {
-        return mNotes;
-    }
-
-    public String getStatus()
-    {
-        return mStatus;
-    }
-
-    public String getDate()
-    {
-        return mDate;
-    }
-
     //Setters
     public void setId(long id)
     {
         this.id = id;
     }
-
     public void setTitle(String mTitle)
     {
-        this.mTitle = mTitle;
+        this.mName = mTitle;
     }
     public void setPlatform(String mPlatform)
     {
-        this.mPlatform = mPlatform;
-    }
-    public void setNotes(String mNotes)
-    {
-        this.mNotes = mNotes;
-    }
-    public void setStatus(String mStatus)
-    {
-        this.mStatus = mStatus;
-    }
-    public void setDate(String mDate)
-    {
-        this.mDate = mDate;
+        this.mText = mPlatform;
     }
 
 }

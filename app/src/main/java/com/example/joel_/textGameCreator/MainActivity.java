@@ -49,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent intent = new Intent(MainActivity.this, AddingCharacterActivity.class);
+
+            mGames.add(new Game("Joel", "Dit is een super coole test!"));
+            updateUI();
+            /*Old Code*/
+                // Intent intent = new Intent(MainActivity.this, AddingCharacterActivity.class);
                 //  startActivity(intent);
             }
         });
@@ -63,7 +67,9 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
 
         Bundle extras = getIntent().getExtras();
 
+        //If the game loads in from another screen, it checks if it has the following information.
         if(extras != null) {
+            /*
             mNewTitle = extras.getString("GameBacklogTitle");
             mNewPlatform = extras.getString("GameBacklogPlatform");
             mNewNotes = extras.getString("GameBacklogNotes");
@@ -71,8 +77,9 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             mModifyPosition = extras.getInt("GameBacklogNew");
             if (mModifyPosition == -1)
             {
-                new GameAsyncTask(TASK_INSERT_GAME).execute(new Game(mNewTitle, mNewPlatform, mNewNotes, mNewStatus));
+                new GameAsyncTask(TASK_INSERT_GAME).execute(new Game(mNewTitle, mNewPlatform));
             }
+            */
         }
 
         updateUI();
@@ -134,7 +141,7 @@ and uses callbacks to signal when a user is performing these actions.
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+/*
         if (requestCode == REQUESTCODE) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
@@ -154,20 +161,22 @@ and uses callbacks to signal when a user is performing these actions.
                     updateUI();
                 }
             }
-        }
+        }*/
     }
 
     @Override
     public void gameOnClick(int i) {
+        /*
         Intent intent = new Intent(MainActivity.this, AddingCharacterActivity.class);
         mModifyPosition = i;
         Game game = mGames.get(i);
-        intent.putExtra("GameBacklogTitle", game.getTitle());
-        intent.putExtra("GameBacklogPlatform", game.getPlatform());
+        intent.putExtra("GameBacklogTitle", game.getName());
+        intent.putExtra("GameBacklogPlatform", game.getText());
         intent.putExtra("GameBacklogStatus", game.getStatus());
         intent.putExtra("GameBacklogNotes", game.getNotes());
         intent.putExtra("GameBacklogNew", i);
         startActivityForResult(intent, REQUESTCODE);
+        */
     }
 
     public class GameAsyncTask extends AsyncTask<Game, Void, List> {
